@@ -13,12 +13,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipPercentile: UISegmentedControl!
     @IBOutlet weak var billTextField: UITextField!
-    let TIP_PERCENTILES = [0.1, 0.15, 0.2]
-    let DEFAULT_SEGMENT_INDEX_KEY = "default_segment_index"
-
+    
+    let defaults = UserDefaults.standard
+    let currencyFormatter = NumberFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        checkLoadLastBill()
+        billTextField.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,30 +28,56 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func onTap(_ sender: AnyObject) {
-        view.endEditing(true)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let defaults = UserDefaults.standard
-        let index = defaults.integer(forKey: DEFAULT_SEGMENT_INDEX_KEY )
-        tipPercentile.selectedSegmentIndex = index
+        billTextField.becomeFirstResponder()
+        Helper.animateViewFadeIn(view: self.view)
+        setSegmentIndex()
         calculate()
+        Helper.setTheme(view: self.view, textField: billTextField)
     }
 
     @IBAction func handleBilInput(_ sender: AnyObject) {
         calculate()
     }
     
+    func checkLoadLastBill(){
+        let time = defaults.object(forKey: Helper.CURRENT_TIME_KEY)
+        let interval = Date().timeIntervalSince(time as! Date)
+        if (interval / 60 < Helper.BILL_RESTORE_INTERVAL) {
+            billTextField.text = defaults.string(forKey: Helper.CURRENT_BILL_KEY)
+        }
+    }
+    
+    func setSegmentIndex() {
+        let index = defaults.integer(forKey: Helper.DEFAULT_SEGMENT_INDEX_KEY )
+        tipPercentile.selectedSegmentIndex = index
+    }
+    
     func calculate() {
         let bill = Double(billTextField.text!) ?? 0
-        let percent = TIP_PERCENTILES[tipPercentile.selectedSegmentIndex]
+        let percent = Helper.TIP_PERCENTILES[tipPercentile.selectedSegmentIndex]
         let tip = bill * percent
         let total = bill * (1 + percent)
         tipLabel.text = String.init(format: "$%.2f", tip)
         totalLabel.text = String.init(format: "$%.2f", total)
-    }
+        
+        // use local currency
+        currencyFormatter.locale = NSLocale.current
+        currencyFormatter.numberStyle = .currency
+        let tipText = tipLabel.text!.replacingOccurrences(of: "$", with: "")
+        let totalText = totalLabel.text!.replacingOccurrences(of: "$", with: "")
+        
+        let tipValue: NSNumber = NSNumber(value:(Double)(tipText)!)
+        let totalValue: NSNumber = NSNumber(value:(Double)(totalText)!)
 
+        tipLabel.text = currencyFormatter.string(from: tipValue)
+        totalLabel.text = currencyFormatter.string(from: totalValue)
+
+        // set current state
+        defaults.set(billTextField.text,forKey:Helper.CURRENT_BILL_KEY)
+        defaults.set(Date(),forKey: Helper.CURRENT_TIME_KEY)
+        defaults.synchronize()
+    }
 }
 

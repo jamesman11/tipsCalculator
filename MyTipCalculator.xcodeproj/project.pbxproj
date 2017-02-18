@@ -14,6 +14,7 @@
 		C50ACD8E1E52E1AD00891B47 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50ACD8C1E52E1AD00891B47 /* LaunchScreen.storyboard */; };
 		C50ACD961E52E7F900891B47 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50ACD951E52E7F900891B47 /* SettingViewController.swift */; };
 		C50ACD981E52EC1900891B47 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C50ACD971E52EC1900891B47 /* README.md */; };
+		C59C96431E58DDC500A994FF /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59C96421E58DDC500A994FF /* Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C50ACD8F1E52E1AD00891B47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C50ACD951E52E7F900891B47 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C50ACD971E52EC1900891B47 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C59C96421E58DDC500A994FF /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				C50ACD8C1E52E1AD00891B47 /* LaunchScreen.storyboard */,
 				C50ACD8F1E52E1AD00891B47 /* Info.plist */,
 				C50ACD951E52E7F900891B47 /* SettingViewController.swift */,
+				C59C96421E58DDC500A994FF /* Helper.swift */,
 			);
 			path = MyTipCalculator;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				C50ACD861E52E1AD00891B47 /* ViewController.swift in Sources */,
 				C50ACD841E52E1AD00891B47 /* AppDelegate.swift in Sources */,
+				C59C96431E58DDC500A994FF /* Helper.swift in Sources */,
 				C50ACD981E52EC1900891B47 /* README.md in Sources */,
 				C50ACD961E52E7F900891B47 /* SettingViewController.swift in Sources */,
 			);

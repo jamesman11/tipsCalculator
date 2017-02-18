@@ -11,11 +11,13 @@ import UIKit
 class SettingViewController: UIViewController {
 
     @IBOutlet weak var defaultTipPercentile: UISegmentedControl!
-     let DEFAULT_SEGMENT_INDEX_KEY = "default_segment_index"
+    @IBOutlet weak var themeSwitch:UISwitch!
+    
+    let defaults = UserDefaults.standard
+    var isDarkTheme = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,27 +25,27 @@ class SettingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let defaults = UserDefaults.standard
-        let index = defaults.integer(forKey: DEFAULT_SEGMENT_INDEX_KEY )
-        defaultTipPercentile.selectedSegmentIndex = index
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Helper.animateViewFadeIn(view: self.view)
+        setSegmentIndex()
+        Helper.setTheme(view: self.view, themeSwitch: themeSwitch)
     }
 
     @IBAction func SetDefaultTipPercentile(_ sender: AnyObject) {
-        let defaults = UserDefaults.standard
-        defaults.set(defaultTipPercentile.selectedSegmentIndex,forKey:DEFAULT_SEGMENT_INDEX_KEY)
+        defaults.set(defaultTipPercentile.selectedSegmentIndex,forKey:Helper.DEFAULT_SEGMENT_INDEX_KEY)
         defaults.synchronize()
 
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func changeThemeHandler(_ sender: AnyObject) {
+        let isDarkTheme = themeSwitch.isOn
+        defaults.set(isDarkTheme,forKey:Helper.THEME_KEY)
+        defaults.synchronize()
+        Helper.setTheme(view: self.view, themeSwitch: themeSwitch)
     }
-    */
-
+    
+    func setSegmentIndex() {
+        let index = defaults.integer(forKey: Helper.DEFAULT_SEGMENT_INDEX_KEY )
+        defaultTipPercentile.selectedSegmentIndex = index
+    }
 }

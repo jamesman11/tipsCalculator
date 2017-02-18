@@ -35,7 +35,7 @@
                                 <color key="textColor" red="1" green="0.74946785469999999" blue="0.45899029829999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBU-vl-zgv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBU-vl-zgv">
                                 <rect key="frame" x="164" y="240" width="183" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
@@ -54,7 +54,7 @@
                                 <color key="textColor" red="1" green="0.74946785469999999" blue="0.45899029829999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxg-63-s1i">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxg-63-s1i">
                                 <rect key="frame" x="164" y="342" width="183" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
@@ -87,14 +87,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="f5V-UA-jFa" appends="YES" id="I1K-FV-2Cm"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="My Tip Calculator" id="Dfw-F0-neQ">
                         <barButtonItem key="rightBarButtonItem" title="Setting" id="X7V-2W-r9w">
                             <connections>
-                                <segue destination="wkK-2T-HQH" kind="push" id="QfS-3y-vHI"/>
+                                <segue destination="wkK-2T-HQH" kind="showDetail" animates="NO" action="showViewController:sender:" id="QfS-3y-vHI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -106,15 +103,10 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="f5V-UA-jFa">
-                    <connections>
-                        <action selector="onTap:" destination="BYZ-38-t0r" id="0xj-tf-zFt"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1056.8" y="122.78860569715144"/>
         </scene>
-        <!--Setting View Controller-->
+        <!--Setting-->
         <scene sceneID="GPL-n8-SBK">
             <objects>
                 <viewController id="wkK-2T-HQH" customClass="SettingViewController" customModule="MyTipCalculator" customModuleProvider="target" sceneMemberID="viewController">
@@ -147,12 +139,27 @@
                                     <action selector="SetDefaultTipPercentile:" destination="wkK-2T-HQH" eventType="valueChanged" id="TK7-M9-OhE"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dark Theme On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tjE-Oa-igx">
+                                <rect key="frame" x="48" y="233" width="157" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.74946785469999999" blue="0.45899029829999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="o3b-LY-d8Y">
+                                <rect key="frame" x="221" y="230" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" red="1" green="0.74946785469999999" blue="0.45899029829999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="changeThemeHandler:" destination="wkK-2T-HQH" eventType="valueChanged" id="eCe-km-Yeh"/>
+                                </connections>
+                            </switch>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="l3k-1h-kX6"/>
+                    <navigationItem key="navigationItem" title="Setting" id="l3k-1h-kX6"/>
                     <connections>
                         <outlet property="defaultTipPercentile" destination="zVC-QK-Xa1" id="Kt5-Mr-gDA"/>
+                        <outlet property="themeSwitch" destination="o3b-LY-d8Y" id="iP2-9X-IWG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hfy-0e-UyE" userLabel="First Responder" sceneMemberID="firstResponder"/>
